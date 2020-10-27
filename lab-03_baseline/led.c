@@ -1,8 +1,7 @@
 #include <avr/io.h>
 #include "led.h"
 
-void LED_init() {
-	// ...
+void led_init() {
 }
 
 uint8_t simple_ramp() {
