@@ -1,11 +1,16 @@
 #include "adc.h"
-
+#include <avr/interrupt.h>
 void adc_init(void) {
-	DDRC &| ~(1 < PC0); //A0 pin input
+	/*
+		Set ADLAR bit in ADMUX register to left adjust this way we only need to read ADCH for 8-bit precision
+		Set RESFS0 bit in ADMUX register for AVcc with external capacitor at AREF pin
 
-	ADMUX |= (1 << ADLAR); //Left adjust
+		Set ADPS0-1 bit in ADCSRA for prescaler 8
+		Set ADEN bit in ADCSRA to enable ADC
+		Set ADIE bit in ADCSRA to enable ADC interrupt
+	*/
+	ADMUX |= (1 << ADLAR) | (1 << REFS0);
 
-	ADCSRA |= (1 << ADPS0) | (1 << ADPS1); //Prescaler 8
-	ADCSRA |= (1 << ADEN); // enable ADC
-	ADCSRA |= (1 << ADSC); // single conversion
+	ADCSRA |= (1 << ADPS0) | (1 << ADPS1);
+	ADCSRA |= (1 << ADEN) | (1 << ADIE);
 }
