@@ -8,7 +8,7 @@ void button_init() {
 	DDRD &= ~(1 << PD2);
 }
 
-void button_set_state_now(uint8_t* buttonStateNow) {
+void button_set_buttonStateNow(uint8_t* buttonStateNow) {
 	/*
 		If button is pressed PIND2 bit in PIND register is high
 		If it is high buttonStateNow is changed it accordingly
@@ -21,20 +21,22 @@ void button_set_state_now(uint8_t* buttonStateNow) {
 	}
 }
 
-void button_print_state(uint8_t* buttonStateNow, uint8_t* buttonStateLast) {
+void button_set_stateChange(uint8_t* buttonStateNow, uint8_t* buttonStateLast, uint8_t* stateChange) {
 	/*
 		"Pushed\n\r" is sent through UART when the button is pressed
-		The same goes for when the button is released
+		"Released\n\r" when the button is released
+		Upon button release stateChange is set
 	*/
 	if (*buttonStateNow == 1 && *buttonStateLast == 0) {
 		printf_P(PSTR("pushed\r\n"));
 	}
 	else if (*buttonStateNow == 0 && *buttonStateLast == 1) {
 		printf_P(PSTR("released\r\n"));
+		*stateChange = 1;
 	}
 }
 
-void button_set_state_last(uint8_t* buttonStateNow, uint8_t* buttonStateLast) {
+void button_set_buttonStateLast(uint8_t* buttonStateNow, uint8_t* buttonStateLast) {
 	/*
 		The last button state is updated
 	*/

@@ -7,10 +7,10 @@
 
 void button_init();
 
-void button_print_state(uint8_t* buttonStateNow, uint8_t* buttonStateLast);
+void button_set_stateChange(uint8_t* buttonStateNow, uint8_t* buttonStateLast, uint8_t* changeState);
 
-void button_set_state_now(uint8_t* buttonStateNow);
+void button_set_buttonStateNow(uint8_t* buttonStateNow);
 
-void button_set_state_last(uint8_t* buttonStateNow, uint8_t* buttonStateLast);
+void button_set_buttonStateLast(uint8_t* buttonStateNow, uint8_t* buttonStateLast);
 
 #endif
